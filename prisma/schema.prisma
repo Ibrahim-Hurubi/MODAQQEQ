@@ -1,0 +1,111 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  role      UserRole @default(ANALYST)
+  department String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relations
+  cases     Case[]
+  
+  @@map("users")
+}
+
+model Case {
+  id          String     @id @default(cuid())
+  title       String
+  description String?
+  category    CaseCategory
+  status      CaseStatus @default(PENDING)
+  priority    Priority   @default(MEDIUM)
+  riskScore   Int?
+  fraudProbability Float?
+  confidence  Float?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  
+  // Relations
+  assignedToId String?
+  assignedTo   User?      @relation(fields: [assignedToId], references: [id])
+  documents    Document[]
+  analysis     AIAnalysis[]
+  
+  @@map("cases")
+}
+
+model Document {
+  id        String   @id @default(cuid())
+  filename  String
+  originalName String
+  mimeType  String
+  size      Int
+  url       String
+  createdAt DateTime @default(now())
+  
+  // Relations
+  caseId    String
+  case      Case     @relation(fields: [caseId], references: [id], onDelete: Cascade)
+  
+  @@map("documents")
+}
+
+model AIAnalysis {
+  id               String   @id @default(cuid())
+  riskScore        Int
+  fraudProbability Float
+  confidence       Float
+  keyFindings      String[] // JSON array of findings
+  recommendations  String[] // JSON array of recommendations
+  processedAt      DateTime @default(now())
+  
+  // Relations
+  caseId           String
+  case             Case     @relation(fields: [caseId], references: [id], onDelete: Cascade)
+  
+  @@map("ai_analysis_results")
+}
+
+enum UserRole {
+  ADMIN
+  SUPERVISOR
+  ANALYST
+  VIEWER
+}
+
+enum CaseCategory {
+  EMPLOYMENT_FRAUD
+  FINANCIAL_MANIPULATION
+  DOCUMENT_FORGERY
+  IDENTITY_THEFT
+  BENEFIT_FRAUD
+  OTHER
+}
+
+enum CaseStatus {
+  PENDING
+  UNDER_REVIEW
+  COMPLETED
+  CLOSED
+  ESCALATED
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
