@@ -35,14 +35,14 @@ export function AboutContent() {
     },
     {
       icon: Award,
-      title: "معتمد حكومياً",
-      description: "معتمد من وزارة الموارد البشرية والتنمية الاجتماعية",
+      title: "معتمد حكومياً (قريبا)",
+      description: "تحت إجراءات طلب الاعتماد الرسمي",
       color: "text-red-600",
     },
     {
       icon: Globe,
       title: "رؤية 2030",
-      description: "يدعم تحقيق أهداف رؤية المملكة العربية السعودية 2030",
+      description: "يدعم تحقيق أهداف رؤية المملكة 2030",
       color: "text-indigo-600",
     },
   ]
