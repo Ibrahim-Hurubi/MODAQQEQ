@@ -3,39 +3,13 @@
 import { useLanguage } from "@/components/language-provider"
 import { Card, CardContent } from "@/components/ui/card"
 import { motion } from "framer-motion"
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useState } from "react"
 
-export function FeaturesAndStats() {
+export function StatsSection() {
   const { t, language } = useLanguage()
   const [counters, setCounters] = useState([0, 0, 0, 0])
 
-  // ✅ قسم الميزات (Features Section)
-  const FeaturesSection = () => (
-    <section className="py-32" id="features-section">
-      <div className="container mx-auto text-center px-4">
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-4xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent"
-        >
-          {t("home.features.title")}
-        </motion.h2>
-
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-xl lg:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed"
-        >
-          {t("home.features.subtitle")}
-        </motion.p>
-      </div>
-    </section>
-  )
-
-  // 🧠 بيانات الإحصائيات
-  const stats = useMemo(() => [
+  const stats = [
     {
       value: 99.2,
       suffix: "%",
@@ -69,7 +43,7 @@ export function FeaturesAndStats() {
       bgGradient: "from-purple-500/10 to-purple-600/20",
       isLarge: true,
     },
-  ], [language])
+  ]
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -94,7 +68,7 @@ export function FeaturesAndStats() {
     },
   }
 
-  // ⚙️ تأثير العداد المتحرك
+  // Animated counter effect
   useEffect(() => {
     const animateCounters = () => {
       stats.forEach((stat, index) => {
@@ -104,13 +78,15 @@ export function FeaturesAndStats() {
         const increment = end / (duration / 16)
 
         const timer = setInterval(() => {
-          start = Math.min(start + increment, end)
-          if (start >= end) clearInterval(timer)
-
+          start += increment
+          if (start >= end) {
+            start = end
+            clearInterval(timer)
+          }
           setCounters((prev) => {
-            const updated = [...prev]
-            updated[index] = start
-            return updated
+            const newCounters = [...prev]
+            newCounters[index] = start
+            return newCounters
           })
         }, 16)
       })
@@ -123,22 +99,25 @@ export function FeaturesAndStats() {
           observer.disconnect()
         }
       },
-      { threshold: 0.5 }
+      { threshold: 0.5 },
     )
 
     const element = document.getElementById("stats-section")
     if (element) observer.observe(element)
 
     return () => observer.disconnect()
-  }, [language])
+  }, [])
 
   const formatNumber = (num: number, isLarge = false) => {
-    return isLarge && num >= 1000 ? num.toFixed(0) : num.toFixed(1)
+    if (isLarge && num >= 1000) {
+      return num.toFixed(0)
+    }
+    return num.toFixed(1)
   }
 
-  // ✅ قسم الإحصائيات (Stats Section)
-  const StatsSection = () => (
+  return (
     <section id="stats-section" className="py-32 relative overflow-hidden">
+      {/* Enhanced Background */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-secondary/5" />
         <motion.div
@@ -149,7 +128,7 @@ export function FeaturesAndStats() {
           }}
           transition={{
             duration: 10,
-            repeat: Infinity,
+            repeat: Number.POSITIVE_INFINITY,
             ease: "easeInOut",
           }}
         />
@@ -161,7 +140,7 @@ export function FeaturesAndStats() {
           }}
           transition={{
             duration: 10,
-            repeat: Infinity,
+            repeat: Number.POSITIVE_INFINITY,
             ease: "easeInOut",
             delay: 5,
           }}
@@ -189,13 +168,18 @@ export function FeaturesAndStats() {
             <motion.div
               key={index}
               variants={itemVariants}
-              whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
+              whileHover={{
+                scale: 1.05,
+                transition: { duration: 0.3 },
+              }}
               className="group"
             >
               <Card className="text-center border-0 shadow-xl hover:shadow-2xl transition-all duration-500 bg-gradient-to-br from-background/90 to-background/70 backdrop-blur-xl overflow-hidden relative h-full">
+                {/* Animated Background */}
                 <div
                   className={`absolute inset-0 bg-gradient-to-br ${stat.bgGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
                 />
+
                 <CardContent className="pt-12 pb-12 relative z-10">
                   <motion.div
                     className={`text-5xl lg:text-6xl font-bold mb-4 ${stat.color} group-hover:scale-110 transition-transform duration-500`}
@@ -219,13 +203,5 @@ export function FeaturesAndStats() {
         </div>
       </motion.div>
     </section>
-  )
-
-  // ✅ النتيجة النهائية
-  return (
-    <>
-      <FeaturesSection />
-      <StatsSection />
-    </>
   )
 }

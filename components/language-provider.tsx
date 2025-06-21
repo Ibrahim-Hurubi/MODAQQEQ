@@ -320,7 +320,7 @@ const translations = {
       "أن نكون النظام الرائد لكشف الاحتيال في المنطقة، ودعم رؤية المملكة العربية السعودية 2030",
     "about.systemFeatures": "مميزات النظام",
     "about.systemFeaturesDesc": "نظام متكامل يجمع بين أحدث التقنيات والخبرات المتخصصة",
-    "about.provenStats": "إحصائيات تجريبية",
+    "about.provenStats": "إحصائيات مثبتة",
     "about.provenStatsDesc": "أرقام تؤكد فعالية النظام في كشف ومنع الاحتيال",
 
     // How It Works - كيف يعمل
@@ -536,7 +536,7 @@ const translations = {
     "footer.contactInfo": "معلومات التواصل",
     "footer.developedWith": "تم تطويره بأعلى معايير الجودة والأمان للقطاع الحكومي",
     "footer.availableLanguages": "متوفر باللغتين العربية والإنجليزية",
-    "footer.allRightsReserved": "© 2024 جميع الحقوق محفوظة.",
+    "footer.allRightsReserved": "© 2024 وزارة الموارد البشرية والتنمية الاجتماعية. جميع الحقوق محفوظة.",
   },
 }
 
