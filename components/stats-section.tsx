@@ -154,8 +154,8 @@ export function StatsSection() {
         viewport={{ once: true, margin: "-100px" }}
         variants={containerVariants}
       >
-        <motion.div className="text-center mb-20" variants={itemVariants}>
-          <h2 className="text-4xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
+        <motion.div className="text-center mb-40" variants={itemVariants}>
+          <h2 className="text-4xl lg:text-6xl font-bold mb-12 bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
             {t("home.stats.title")}
           </h2>
           <p className="text-xl lg:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
