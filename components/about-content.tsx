@@ -49,7 +49,7 @@ export function AboutContent() {
 
   const stats = [
     {
-      value: "99.2%",
+      value: "95.2%",
       label: t("stats.detectionAccuracy"),
       description: t("stats.detectionAccuracyDesc"),
     },
@@ -64,7 +64,7 @@ export function AboutContent() {
       description: t("stats.monitoringDesc"),
     },
     {
-      value: "1,000+",
+      value: "3",
       label: t("stats.analyzedCases"),
       description: t("stats.analyzedCasesDesc"),
     },

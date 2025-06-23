@@ -375,7 +375,7 @@ export function DashboardContent() {
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
                     <span>{t("dashboard.detectionAccuracy")}</span>
-                    <span className="font-medium">99.2%</span>
+                    <span className="font-medium">95.2%</span>
                   </div>
                   <Progress value={99.2} className="h-2" />
                 </div>

@@ -320,7 +320,7 @@ const translations = {
       "أن نكون النظام الرائد لكشف الاحتيال في المنطقة، ودعم رؤية المملكة العربية السعودية 2030",
     "about.systemFeatures": "مميزات النظام",
     "about.systemFeaturesDesc": "نظام متكامل يجمع بين أحدث التقنيات والخبرات المتخصصة",
-    "about.provenStats": "إحصائيات مثبتة",
+    "about.provenStats": "إحصائيات تجريبية",
     "about.provenStatsDesc": "أرقام تؤكد فعالية النظام في كشف ومنع الاحتيال",
 
     // How It Works - كيف يعمل
